@@ -6,18 +6,6 @@ import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { truncateHash } from '../Utils';
 
-function TransactionHashes(txHashes) {
-    return (
-        <>
-        {txHashes.map(txHash => (
-            <>
-            <NavLink to={"/tx/"+txHash}>{txHash}</NavLink><br/>
-            </>
-        ))}
-        </>
-    );
-}
-
 function Transactions(txs) {
     return (
         <table>
@@ -61,8 +49,8 @@ export default function Block() {
 
     useEffect(() => {
         (async function getState() {
-          const b =  await provider.getBlock(parseInt(blockNumber));
-          const bwtxs = await alchemy.core.getBlockWithTransactions(b.hash);
+          const hash =  await provider.getBlock(parseInt(blockNumber)).hash;
+          const bwtxs = await alchemy.core.getBlockWithTransactions(hash);
           setState(bwtxs);
         })();
       }, []);
