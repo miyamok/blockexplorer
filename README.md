@@ -1,5 +1,18 @@
 # Ethereum Block Explorer
 
+This is a deliverable for the assignment of 3rd week Alchemy University Ethereum Dev. Bootcamp.
+The objective of the project is to implement an Ethereum block explorer (such as etherscan.io) by means of ethers.js, Alchemy's API, and react.
+This version for submission consists of the following features.
+
+- Main page "/" for chain information on the Ethereum mainnet, providing the latest block number, the ETH market price, the gas price, and the current time.
+- Block page "/block" for the block's information, providing the list of transactions (txHash, from , to, and value).
+- Transaction page "/tx" for the information on a transaction, providing also gas price, gas limit, max fee per gas (if available), and max priority fee per gas (if available), in addition to the information given in the block page.
+- Address page "/address" for the information on an address, providing the ETH balance and the list of NFTs owned (title, description, NFT contract address, and NFT type).
+
+The rest of this README is just to keep the original README given by alchemy.com.
+
+## Implemented features
+
 The lessons this week covered the Ethereum JSON-RPC API and the `ethers.js` library giving us the ability to query the Ethereum blockchain and make transactions!
 
 Let's put that knowledge to the test by building our very own **Ethereum Block Explorer**!
