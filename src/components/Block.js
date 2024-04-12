@@ -17,7 +17,7 @@ function Transactions(txs) {
                     from
                 </th>
                 <th>
-                    to
+                    to (* created contract)
                 </th>
                 <th>
                     value
@@ -32,7 +32,8 @@ function Transactions(txs) {
                     <NavLink to={"/address/"+tx.from}>{truncateHash(tx.from)}</NavLink>
                 </td>
                 <td>
-                    <NavLink to={"/address/"+tx.to}>{truncateHash(tx.to)}</NavLink>
+                    {toLink(tx.to, tx.creates)}
+                    {/* <NavLink to={"/address/"+tx.to}>{tx.to === null ? "?" : truncateHash(tx.to)}</NavLink> */}
                 </td>
                 <td>
                     {ethers.formatUnits(tx.value.toString(), "ether") + " ETH"}
@@ -43,14 +44,31 @@ function Transactions(txs) {
     )
 }
 
+function toLink(to, creates) {
+    if (to != null) {
+        return (
+            <>
+            <NavLink to={"/address/"+to}>{truncateHash(to)}</NavLink>
+            </>
+        )
+    }
+    if (creates != null) {
+        return (
+            <>
+            <NavLink to={"/address/"+creates}>*{truncateHash(creates)}</NavLink>
+            </>
+        )
+    }
+    return (<span>information not available</span>)
+}
+
 export default function Block() {
     const { blockNumber } = useParams();
     const [block, setState] = useState(undefined);
 
     useEffect(() => {
         (async function getState() {
-          const hash =  await provider.getBlock(parseInt(blockNumber)).hash;
-          const bwtxs = await alchemy.core.getBlockWithTransactions(hash);
+          const bwtxs = await alchemy.core.getBlockWithTransactions(parseInt(blockNumber));
           setState(bwtxs);
         })();
       }, []);
